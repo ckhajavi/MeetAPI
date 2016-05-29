@@ -16,6 +16,15 @@ app.get('/', function(request, response) {
 });
 
 
+app.get('/times', function(request,response){
+ var string = '';
+ for(var i = 0; i<= process.env.TIMES; i++){
+    string += i + ' ';
+  }
+ response.send(string);
+});
+
+
 app.get('/cool',function(request,response){
   response.send(cool());
 });
