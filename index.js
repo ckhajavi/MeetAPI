@@ -1,13 +1,11 @@
 //TASKS:
-//1. provision a db for storing events ()
+//1. provision a db for storing events (?)
 //2. make fb access work for graphAPIexplorer scope (done)
-//3. make fb access work for Meet scope ()
-//4. make the route guide on the page ()
-//5. make the front page for this app ()
-//6. Error handling and developer proofing ()
-//7. SQL injection proofing if needed ()
-
-
+//3. make fb access work for Meet scope (done)
+//4. make the route guide on the page (done)
+//5. make the front page for this app (done)
+//6. Error handling and developer proofing (?)
+//7. SQL injection proofing if needed (?)
 
 var express = require('express');
 var app = express();
@@ -100,7 +98,8 @@ app.get('/info',function(request,response){
 
 
 //test routes begin
-app.get('/times', function(request,response){
+app.get('/times', function
+	(request,response){
  var string = '';
  for(var i = 0; i<= process.env.TIMES; i++){
     string += i + ' ';
