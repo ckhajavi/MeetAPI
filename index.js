@@ -55,6 +55,25 @@ app.get('/fb/:access_token/:app_scoped_queryid',function(request,response){
 		});
 });
 
+app.get('/fbx/:access_token/:app_scoped_queryid',function(request,response){
+	
+	var token = request.params.access_token;
+	var queryid = request.params.app_scoped_queryid;
+
+	var query = "https://graph.facebook.com/"+queryid;
+	var request = require('superagent');
+	request
+		.get(query)
+		.query({fields: 'context.fields(mutual_likes,mutual_friends),name'})
+		.query({access_token: token})
+		.end(function(err,res){
+			if(!err && res.status===200){
+				var res = res.text;
+				response.send("['"+JSON.parse(res).name+"','"+JSON.parse(res).context.mutual_likes.summary.total_count + "',' "+ JSON.parse(res).context.mutual_friends.summary.total_count+"']");
+			}
+		});
+});
+
 
 
 
