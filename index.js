@@ -36,8 +36,8 @@ app.get('/', function(request, response) {
 });
 
 
-app.get('/fb/:app_scoped_userid/:access_token/:app_scoped_queryid',function(request,response){
-	var userid = request.params.app_scoped_userid;
+app.get('/fb/:access_token/:app_scoped_queryid',function(request,response){
+	
 	var token = request.params.access_token;
 	var queryid = request.params.app_scoped_queryid;
 
@@ -45,13 +45,12 @@ app.get('/fb/:app_scoped_userid/:access_token/:app_scoped_queryid',function(requ
 	var request = require('superagent');
 	request
 		.get(query)
-		.query({fields: 'context.fields(mutual_likes)'})
+		.query({fields: 'context.fields(mutual_likes,mutual_friends)'})
 		.query({access_token: token})
 		.end(function(err,res){
 			if(!err && res.status===200){
-				console.log('success');
 				var res = res.text;
-				response.send(res.context.mutual_likes);
+				response.json(JSON.parse(res));
 			}
 		});
 });
@@ -68,6 +67,7 @@ app.get('/fb/:app_scoped_userid/:access_token/:app_scoped_queryid',function(requ
 app.get('fb/event/:edgeid/:access_token',function(request,response){
 	response.send('event search...coming soon');
 });
+
 
 
 //TO:DO
@@ -98,5 +98,3 @@ app.get('/cool',function(request,response){
 app.listen(app.get('port'), function() {
   console.log('Meet sServer is running on port', app.get('port'));
 });
-
-
