@@ -47,8 +47,13 @@ app.get('/api/amf/:access_token/:friend_id',function(request,response){
 	unirest.get(url)
 		.end(function (res) {
 		var jresponse = JSON.parse(res.body);
-  		response.send(jresponse["context"]["mutual_friends"]["summary"]);
-  		//response.send(res.body);
+		console.log(jresponse["context"])
+		if (jresponse['context'] !== undefined && jresponse["context"]["mutual_friends"]!== undefined){
+  			response.send(jresponse["context"]["mutual_friends"]["summary"]);
+  		}
+  		else{
+  			response.send(jresponse);
+  		}  	
 	});	
 
 });
