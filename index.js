@@ -37,6 +37,7 @@ app.get('/', function(request, response) {
   response.render('pages/index');
 });
 
+//returns the number of mutual friends
 app.get('/api/amf/:access_token/:friend_id',function(request,response){
 	var access_token = request.params.access_token;
 	var friend_id  = request.params.friend_id;
@@ -50,6 +51,28 @@ app.get('/api/amf/:access_token/:friend_id',function(request,response){
 		console.log(jresponse["context"])
 		if (jresponse['context'] !== undefined && jresponse["context"]["mutual_friends"]!== undefined){
   			response.send(jresponse["context"]["mutual_friends"]["summary"]);
+  		}
+  		else{
+  			response.send(jresponse);
+  		}  	
+	});	
+
+});
+
+//returns the number of mutual likes
+app.get('/api/aml/:access_token/:friend_id',function(request,response){
+	var access_token = request.params.access_token;
+	var friend_id  = request.params.friend_id;
+	var app_proof = Crypto.HmacSHA256(access_token, APP_SECRET);
+
+	var hexproof = app_proof.toString(Crypto.enc.Hex);
+	var url = "https://graph.facebook.com/"+ friend_id + "?" + "fields=context.fields(mutual_likes)&access_token=" + access_token + "&appsecret_proof=" + hexproof;
+	unirest.get(url)
+		.end(function (res) {
+		var jresponse = JSON.parse(res.body);
+		console.log(jresponse["context"])
+		if (jresponse['context'] !== undefined && jresponse["context"]["mutual_likes"]!== undefined){
+  			response.send(jresponse["context"]["mutual_likes"]["summary"]);
   		}
   		else{
   			response.send(jresponse);
