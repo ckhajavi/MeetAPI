@@ -12,6 +12,10 @@ var app = express();
 var cool = require('cool-ascii-faces');
 var request = require('superagent');
 var meetAPP_ID = 1016247148423251;
+var Crypto = require("crypto-js");
+//var middleWare = require('./middleWare.js');
+var unirest = require('unirest');
+var APP_SECRET = '901271404bee861b0810763d5d4ca8d4';
 
 
 app.set('port', (process.env.PORT || 5000));
@@ -33,6 +37,21 @@ app.get('/', function(request, response) {
   response.render('pages/index');
 });
 
+app.get('/api/amf/:access_token/:friend_id',function(request,response){
+	var access_token = request.params.access_token;
+	var friend_id  = request.params.friend_id;
+	var app_proof = Crypto.HmacSHA256(access_token, APP_SECRET);
+
+	var hexproof = app_proof.toString(Crypto.enc.Hex);
+	var url = "https://graph.facebook.com/"+ friend_id + "?" + "fields=context.fields(mutual_friends)&access_token=" + access_token + "&appsecret_proof=" + hexproof;
+	unirest.get(url)
+		.end(function (res) {
+		var jresponse = JSON.parse(res.body);
+  		response.send(jresponse["context"]["mutual_friends"]["summary"]);
+  		//response.send(res.body);
+	});	
+
+});
 
 app.get('/fb/:access_token/:app_scoped_queryid',function(request,response){
 	
