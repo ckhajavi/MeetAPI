@@ -44,17 +44,26 @@ app.get('/api/amf/:access_token/:friend_id',function(request,response){
 	var app_proof = Crypto.HmacSHA256(access_token, APP_SECRET);
 
 	var hexproof = app_proof.toString(Crypto.enc.Hex);
-	var url = "https://graph.facebook.com/"+ friend_id + "?" + "fields=context.fields(mutual_friends)&access_token=" + access_token + "&appsecret_proof=" + hexproof;
+	var url = "https://graph.facebook.com/"+ friend_id + "?" + "fields=name,picture,context.fields(mutual_friends,mutual_likes)&access_token=" + access_token + "&appsecret_proof=" + hexproof;
 	unirest.get(url)
 		.end(function (res) {
 		var jresponse = JSON.parse(res.body);
-		console.log(jresponse["context"])
+		// console.log(jresponse['picture']['data']['url'])//["context"])
+		// response.send(jresponse);
 		if (jresponse['context'] !== undefined && jresponse["context"]["mutual_friends"]!== undefined){
-  			response.send(jresponse["context"]["mutual_friends"]["summary"]);
+			my_response = {
+							"name": jresponse['name'],
+							"picture":jresponse['picture']['data']['url'],
+							"mutual_friends":jresponse["context"]["mutual_friends"]["summary"]["total_count"],
+							"mutual_likes":jresponse["context"]["mutual_likes"]["summary"]["total_count"],
+						};
+
+			response.send(my_response);
+		  	
   		}
   		else{
   			response.send(jresponse);
-  		}  	
+  		}	
 	});	
 
 });
@@ -139,7 +148,6 @@ app.get('fb/event/:edgeid/:access_token',function(request,response){
 app.get('/info',function(request,response){
 	response.send('info about routes...coming soon');
 });
-
 
 
 
