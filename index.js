@@ -56,6 +56,7 @@ app.get('/api/amf/:access_token/:friend_id',function(request,response){
 							"picture":jresponse['picture']['data']['url'],
 							"mutual_friends":jresponse["context"]["mutual_friends"]["summary"]["total_count"],
 							"mutual_likes":jresponse["context"]["mutual_likes"]["summary"]["total_count"],
+              "app_scoped_id" : friend_id,
 						};
 
 			response.send(my_response);
