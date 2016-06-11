@@ -272,11 +272,6 @@ app.get('/info',function(request,response){
 });
 
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 6009710437c82d0e0f5bea469733e410a62c7d7c
 //test routes begin
 app.get('/times', function
 	(request,response){
