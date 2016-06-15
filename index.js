@@ -15,7 +15,7 @@ var meetAPP_ID = 1016247148423251;
 var Crypto = require("crypto-js");
 //var middleWare = require('./middleWare.js');
 var unirest = require('unirest');
-var APP_SECRET = '901271404bee861b0810763d5d4ca8d4';
+var APP_SECRET = 'your app secret here';
 
 
 app.set('port', (process.env.PORT || 5000));
