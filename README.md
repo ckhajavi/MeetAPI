@@ -10,7 +10,7 @@ Make sure you have [Node.js](http://nodejs.org/) ,[MongoDB](https://www.mongodb.
 
 ```sh
 $ git clone https://github.com/joelbandi/MeetAPI.git # or clone your own fork
-$ cd TF_IDF_RecommenderAPI
+$ cd MeetAPI
 $ npm install
 $ heroku local
 ```
