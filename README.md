@@ -1,23 +1,26 @@
-# node-js-getting-started
+# API server
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
+The Meet backend API using [Express 4](http://expressjs.com/).
 
 This application supports the [Getting Started with Node on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
 
 ## Running Locally
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed.
+Make sure you have [Node.js](http://nodejs.org/) ,[MongoDB](https://www.mongodb.org/) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed. 
 
 ```sh
-$ git clone git@github.com:heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
+$ git clone https://github.com/joelbandi/MeetAPI.git # or clone your own fork
+$ cd TF_IDF_RecommenderAPI
 $ npm install
-$ npm start
+$ heroku local
 ```
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
 
+Visit [Routes section](http://localhost:5000/api/routes) for more info on the routes available to you.
+
 ## Deploying to Heroku
+
 
 ```
 $ heroku create
